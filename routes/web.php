@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StaffManagementController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [StaffManagementController::class, 'index']);
+
+Route::prefix('staff-management')->group(function() {
+    Route::get('/', [StaffManagementController::class, 'index'])->name('staff-management.index');
+    Route::post('/delete', [StaffManagementController::class, 'destroy'])->name('staff-management.destroy');
+    Route::post('/update', [StaffManagementController::class, 'update'])->name('staff-management.update');
+    Route::get('/create', [StaffManagementController::class, 'create'])->name('staff-management.create');
+    Route::post('/create', [StaffManagementController::class, 'create'])->name('staff-management.create');
+    Route::get('/reset', [StaffManagementController::class, 'resetTable'])->name('staff-management.reset');
+    Route::get('/search', [StaffManagementController::class, 'search'])->name('staff-management.search');
+    
+    
 });
